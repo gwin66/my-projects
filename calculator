@@ -1,0 +1,51 @@
+import tkinter as tk
+
+# Функція для виконання обчислень
+def calculate():
+    try:
+        a = float(entry_a.get())
+        b = float(entry_b.get())
+        op = operation.get()
+
+        if op == "+":
+            result.set(a + b)
+        elif op == "-":
+            result.set(a - b)
+        elif op == "*":
+            result.set(a * b)
+        elif op == "/":
+            if b != 0:
+                result.set(a / b)
+            else:
+                result.set("Ділення на нуль!")
+    except ValueError:
+        result.set("Помилка вводу!")
+
+# Створення вікна
+root = tk.Tk()
+root.title("Калькулятор")
+
+# Поля для вводу
+tk.Label(root, text="Перше число:").grid(row=0, column=0)
+entry_a = tk.Entry(root)
+entry_a.grid(row=0, column=1)
+
+tk.Label(root, text="Друге число:").grid(row=1, column=0)
+entry_b = tk.Entry(root)
+entry_b.grid(row=1, column=1)
+
+# Вибір операції
+tk.Label(root, text="Операція:").grid(row=2, column=0)
+operation = tk.StringVar()
+operation.set("+")
+tk.OptionMenu(root, operation, "+", "-", "*", "/").grid(row=2, column=1)
+
+# Кнопка для обчислення
+tk.Button(root, text="Обчислити", command=calculate).grid(row=3, column=0, columnspan=2)
+
+# Результат
+result = tk.StringVar()
+tk.Label(root, text="Результат:").grid(row=4, column=0)
+tk.Label(root, textvariable=result).grid(row=4, column=1)
+
+root.mainloop()
